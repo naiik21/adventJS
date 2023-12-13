@@ -10,34 +10,50 @@ console.log(result1)
 
   */
 
-  function organizeGifts(gifts) {
+function organizeGifts(gifts) {
+    let tipoRegalos=[];
+    let abc='abcçdefghijklmnopqrstuvwxyz';
+    let regalo="";
     let result='';
-    let bolsa;
-    let cajas;
-    let pales;
-    let aux='';
-    
-    let letra='';
-    let num=parseInt(gifts.substring(0, gifts.indexOf('a')));
 
+    for(let n=0; n<gifts.length; n++){
+        regalo += gifts.charAt(n);
 
-    cajas= parseInt(num/10);
-    bolsa=num%10;
-    pales=parseInt(cajas/5);
-    cajas=cajas%5;
-    for(let n=0; n<pales;n++){
-        result += `[${letra}]`;
-    }
-    for(let n=0; n<cajas;n++){
-        result += `{${letra}}`;
-    }
-    if(bolsa>0){
-        aux='(';
-        for(let n=0; n<bolsa;n++){
-            aux+= `${letra}`;
+        if(abc.includes(gifts.charAt(n))){
+            tipoRegalos.push(regalo);
+            regalo="";
         }
-        aux += ')';
     }
-    result+= aux;
-    return result;
+
+
+    for(let n=0; n<tipoRegalos.length; n++){
+        let bolsa;
+        let cajas;
+        let pales;
+        let aux='';
+
+        let num=parseInt(tipoRegalos[n].substring(0, tipoRegalos[n].length-1));
+        let letra=tipoRegalos[n].substring(tipoRegalos[n].length-1);
+ 
+        cajas= parseInt(num/10);
+        bolsa=num%10;
+        pales=parseInt(cajas/5);
+        cajas=cajas%5;
+        for(let n=0; n<pales;n++){
+            result += `[${letra}]`;
+        }
+        for(let n=0; n<cajas;n++){
+            result += `{${letra}}`;
+        }
+        if(bolsa>0){
+            aux='(';
+            for(let n=0; n<bolsa;n++){
+                aux+= `${letra}`;
+            }
+            aux += ')';
+        }
+        result+= aux;
+    }
+
+    return result;    
 }
